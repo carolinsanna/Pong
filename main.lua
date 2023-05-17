@@ -20,6 +20,11 @@
 -- que é realmente, utilizada para dar um aspecto mais retrô.
 
 push = require 'push'
+
+Class = require 'class'
+require 'Paddle'
+require 'Ball'
+
 WINDOW_WIDTH = 1280 
 WINDOW_HEIGHT = 720
 
