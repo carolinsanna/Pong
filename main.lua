@@ -26,11 +26,14 @@ WINDOW_HEIGHT = 720
 VIRTUAL_WIDTH = 432
 VIRTUAL_HEIGHT = 243
 
+PADDLE_SPEED = 200
+
 function love.load()
 
     love.graphics.setDefaultFilter('nearest', 'nearest') --esse método impede o efeito de blur na renderização
 
     smallFont = love.graphics.newFont('font.ttf', 8)
+    scoreFont = love.graphics.newFont('font.ttf', 32)
 
     love.graphics.setFont(smallFont)
 
@@ -40,7 +43,15 @@ function love.load()
         resizable = false,
         vsync = true
     })
+
+playerOneScore = 0
+playerTwoScore = 0
+
+playerOneY = 30 
+playerTwoY = VIRTUAL_HEIGHT - 50
 end
+
+
 
 function love.keypressed(key)
     if key == 'escape' then 
@@ -64,6 +75,11 @@ function love.draw()
     )]]
 
     love.graphics.printf('Hello Pong!', 0, 20, VIRTUAL_WIDTH, 'center')
+
+    love.graphics.rectangle('fill', 10, 30, 5, 20) --('preenchido', x-axis, y-axis, width, heigth)
+    love.graphics.rectangle('fill', VIRTUAL_WIDTH - 15, VIRTUAL_HEIGHT - 50, 5, 20)
+    love.graphics.rectangle('fill', VIRTUAL_WIDTH / 2 - 2, VIRTUAL_HEIGHT / 2 - 2, 4, 4)
+
 
     push:apply('end')
 end
