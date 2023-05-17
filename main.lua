@@ -51,7 +51,21 @@ playerOneY = 30
 playerTwoY = VIRTUAL_HEIGHT - 50
 end
 
+function love.update(dt)
+    --movimento do player 1 
+    if love.keyboard.isDown('w') then
+        playerOneY = playerOneY + -PADDLE_SPEED * dt
+    elseif love.keyboard.isDown('s') then 
+        playerOneY = playerOneY + PADDLE_SPEED * dt
+    end
 
+    --movimento do player 2 
+    if love.keyboard.isDown('up') then
+        playerTwoY = playerTwoY + -PADDLE_SPEED * dt 
+    elseif love.keyboard.isDown('down') then 
+        playerTwoY = playerTwoY + PADDLE_SPEED * dt 
+    end 
+end
 
 function love.keypressed(key)
     if key == 'escape' then 
