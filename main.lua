@@ -44,11 +44,11 @@ function love.load()
         vsync = true
     })
 
-playerOneScore = 0
-playerTwoScore = 0
+    playerOneScore = 0
+    playerTwoScore = 0
 
-playerOneY = 30 
-playerTwoY = VIRTUAL_HEIGHT - 50
+    playerOneY = 30 
+    playerTwoY = VIRTUAL_HEIGHT - 50
 end
 
 function love.update(dt)
@@ -78,7 +78,7 @@ function love.draw()
 
     love.graphics.clear(40/225, 45/225, 52/255, 255/255)
     
- --[[   love.graphics.printf(
+    --[[   love.graphics.printf(
         'Hello Pong!',
         0,
         --WINDOW_HEIGHT / 2-6,
@@ -87,11 +87,16 @@ function love.draw()
         VIRTUAL_WIDTH,
         'center'
     )]]
-
+    
+    love.graphics.setFont(smallFont)
     love.graphics.printf('Hello Pong!', 0, 20, VIRTUAL_WIDTH, 'center')
 
-    love.graphics.rectangle('fill', 10, 30, 5, 20) --('preenchido', x-axis, y-axis, width, heigth)
-    love.graphics.rectangle('fill', VIRTUAL_WIDTH - 15, VIRTUAL_HEIGHT - 50, 5, 20)
+    love.graphics.setFont(scoreFont)
+    love.graphics.print(tostring(playerOneScore), VIRTUAL_WIDTH / 2 - 50, VIRTUAL_HEIGHT / 3)
+    love.graphics.print(tostring(playerTwoScore), VIRTUAL_WIDTH / 2 + 30, VIRTUAL_HEIGHT / 3)
+
+    love.graphics.rectangle('fill', 10, playerOneY, 5, 20) --('preenchido', x-axis, y-axis, width, heigth)
+    love.graphics.rectangle('fill', VIRTUAL_WIDTH - 15, playerTwoY, 5, 20)
     love.graphics.rectangle('fill', VIRTUAL_WIDTH / 2 - 2, VIRTUAL_HEIGHT / 2 - 2, 4, 4)
 
 
