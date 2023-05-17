@@ -56,14 +56,19 @@ function love.load()
     playerOneScore = 0
     playerTwoScore = 0
 
-    playerOneY = 30 
+    --[[playerOneY = 30 
     playerTwoY = VIRTUAL_HEIGHT - 50
 
     ballX = VIRTUAL_WIDTH / 2 - 2
     ballY = VIRTUAL_HEIGHT / 2 - 2
 
     ballDX = math.random(2) == 1 and 100 or -100
-    ballDY = math.random(-50,50)
+    ballDY = math.random(-50,50)]]--
+    
+    playerOne = Paddle(10, 30, 5, 20)
+    playerTwo = Paddle(VIRTUAL_WIDTH - 10, VIRTUAL_HEIGHT - 30, 5, 20)
+
+    ball = Ball(VIRTUAL_WIDTH / 2 - 2, VIRTUAL_HEIGHT / 2 - 2, 4, 4)
 
     gameState = 'start'
 end
@@ -71,24 +76,29 @@ end
 function love.update(dt) --dt é reservado da linguagem para delta time
     --movimento do player 1 
     if love.keyboard.isDown('w') then
-        playerOneY = math.max(0, playerOneY + -PADDLE_SPEED * dt)
+        playerOne.dy = -PADDLE_SPEED
     elseif love.keyboard.isDown('s') then 
-        playerOneY = math.min(VIRTUAL_HEIGHT - 20, playerOneY + PADDLE_SPEED * dt)
+        playerOne.dy = PADDLE_SPEED
+    else
+        playerOne.dy = 0
     end
 
     --movimento do player 2 
     if love.keyboard.isDown('up') then
-        playerTwoY = math.max(0, playerTwoY + -PADDLE_SPEED * dt )
+        playerTwo.dy = -PADDLE_SPEED
     elseif love.keyboard.isDown('down') then 
-        playerTwoY = math.min(VIRTUAL_HEIGHT - 20, playerTwoY + PADDLE_SPEED * dt)
+        playerTwo.dy = PADDLE_SPEED
+    else
+        playerTwo.dy = 0
     end 
 
     --movimento da bola DX e DY * dt, apenas se o game estiver em estado play
     if gameState == 'play' then 
-        ballX = ballX + ballDX * dt
-        ballY = ballY + ballDY * dt
+        ball:update(dt)
     end
 
+    playerOne:update(dt)
+    playerTwo:update(dt)
 end
 
 function love.keypressed(key)
@@ -101,13 +111,15 @@ function love.keypressed(key)
             gameState = 'start'
 
             --reinicia a bola no meio da tela
-            ballX = VIRTUAL_WIDTH / 2 - 2
-            ballY = VIRTUAL_HEIGHT / 2 - 2 
-
+            --[[ballX = VIRTUAL_WIDTH / 2 - 2
+            ballY = VIRTUAL_HEIGHT / 2 - 2 ]]--
+            
             --determina um a velocidade da bola com um parametro aleatório
             --or é um operator ternário da ling Lua
-            ballDX = math.random(2) == 1 and 100 or - 100
-            ballDY = math.random(-50, 50) * 1.5
+            --[[ballDX = math.random(2) == 1 and 100 or - 100
+            ballDY = math.random(-50, 50) * 1.5]]--
+            
+            ball:reset() --novo médoto para resetar a posição da bola na tela 
         end
     end
 
@@ -140,9 +152,14 @@ function love.draw()
     love.graphics.print(tostring(playerOneScore), VIRTUAL_WIDTH / 2 - 50, VIRTUAL_HEIGHT / 3)
     love.graphics.print(tostring(playerTwoScore), VIRTUAL_WIDTH / 2 + 30, VIRTUAL_HEIGHT / 3)
 
-    love.graphics.rectangle('fill', 10, playerOneY, 5, 20) --('preenchido', x-axis, y-axis, width, heigth)
+    playerOne:render() --renderiza as raquetes, agora com o método da sua classe
+    playerTwo:render()
+
+    ball:render() --renderiza a bola com o método da sua classe
+
+    --[[love.graphics.rectangle('fill', 10, playerOneY, 5, 20) --('preenchido', x-axis, y-axis, width, heigth)
     love.graphics.rectangle('fill', VIRTUAL_WIDTH - 15, playerTwoY, 5, 20)
-    love.graphics.rectangle('fill', ballX, ballY, 4, 4)
+    love.graphics.rectangle('fill', ballX, ballY, 4, 4)]]--
 
 
     push:apply('end')
