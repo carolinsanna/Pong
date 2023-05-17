@@ -32,6 +32,10 @@ function love.load()
 
     love.graphics.setDefaultFilter('nearest', 'nearest') --esse método impede o efeito de blur na renderização
 
+    --utilizando a hora atual do sistema permite que o valor sempre varie na inicialização
+    --aliado com o método randomseed, garante que a randomizaçao seja mesmo aleatória
+    math.randomseed(os.time())
+
     smallFont = love.graphics.newFont('font.ttf', 8)
     scoreFont = love.graphics.newFont('font.ttf', 32)
 
@@ -49,21 +53,29 @@ function love.load()
 
     playerOneY = 30 
     playerTwoY = VIRTUAL_HEIGHT - 50
+
+    ballX = VIRTUAL_WIDTH / 2 - 2
+    ballY = VIRTUAL_HEIGHT / 2 - 2
+
+    ballDX = math.random(2) == 1 and 100 or -100
+    ballDY = math.random(-50,50)
+
+    gameState = 'start'
 end
 
 function love.update(dt)
     --movimento do player 1 
     if love.keyboard.isDown('w') then
-        playerOneY = playerOneY + -PADDLE_SPEED * dt
+        playerOneY = math.max(0, playerOneY + -PADDLE_SPEED * dt)
     elseif love.keyboard.isDown('s') then 
-        playerOneY = playerOneY + PADDLE_SPEED * dt
+        playerOneY = math.min(VIRTUAL_HEIGHT - 20, playerOneY + PADDLE_SPEED * dt)
     end
 
     --movimento do player 2 
     if love.keyboard.isDown('up') then
-        playerTwoY = playerTwoY + -PADDLE_SPEED * dt 
+        playerTwoY = math.max(0, playerTwoY + -PADDLE_SPEED * dt )
     elseif love.keyboard.isDown('down') then 
-        playerTwoY = playerTwoY + PADDLE_SPEED * dt 
+        playerTwoY = math.min(VIRTUAL_HEIGHT - 20, playerTwoY + PADDLE_SPEED * dt)
     end 
 end
 
