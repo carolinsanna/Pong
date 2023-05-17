@@ -137,7 +137,7 @@ function love.draw()
 
     love.graphics.rectangle('fill', 10, playerOneY, 5, 20) --('preenchido', x-axis, y-axis, width, heigth)
     love.graphics.rectangle('fill', VIRTUAL_WIDTH - 15, playerTwoY, 5, 20)
-    love.graphics.rectangle('fill', ballX, ballDX, 4, 4)
+    love.graphics.rectangle('fill', ballX, ballY, 4, 4)
 
 
     push:apply('end')
