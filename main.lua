@@ -33,7 +33,7 @@ function love.load()
     smallFont = love.graphics.newFont('font.ttf', 8)
 
     love.graphics.setFont(smallFont)
-    
+
     --love.window.setMode(WINDOW_WIDTH, WINDOW_HEIGHT, { --seria assim sem utilizar a lib push
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false,
@@ -42,10 +42,18 @@ function love.load()
     })
 end
 
+function love.keypressed(key)
+    if key == 'escape' then 
+        love.event.quit()
+    end
+end
+
 function love.draw()
     push:apply('start')
+
+    love.graphics.clear(40/225, 45/225, 52/255, 255/255)
     
-    love.graphics.printf(
+ --[[   love.graphics.printf(
         'Hello Pong!',
         0,
         --WINDOW_HEIGHT / 2-6,
@@ -53,13 +61,9 @@ function love.draw()
         VIRTUAL_HEIGHT / 2-6,
         VIRTUAL_WIDTH,
         'center'
-    )
+    )]]
+
+    love.graphics.printf('Hello Pong!', 0, 20, VIRTUAL_WIDTH, 'center')
 
     push:apply('end')
-end
-
-function love.keypressed(key)
-    if key == 'escape' then 
-        love.event.quit()
-    end
 end
