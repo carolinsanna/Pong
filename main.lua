@@ -28,9 +28,12 @@ VIRTUAL_HEIGHT = 243
 
 function love.load()
 
-    love.graphics.setDefaultFilter('nearest', 'nearest') --esse método impede o efetio de blur na renderização
+    love.graphics.setDefaultFilter('nearest', 'nearest') --esse método impede o efeito de blur na renderização
 
+    smallFont = love.graphics.newFont('font.ttf', 8)
 
+    love.graphics.setFont(smallFont)
+    
     --love.window.setMode(WINDOW_WIDTH, WINDOW_HEIGHT, { --seria assim sem utilizar a lib push
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false,
