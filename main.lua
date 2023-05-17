@@ -63,7 +63,7 @@ function love.load()
     gameState = 'start'
 end
 
-function love.update(dt)
+function love.update(dt) --dt é reservado da linguagem para delta time
     --movimento do player 1 
     if love.keyboard.isDown('w') then
         playerOneY = math.max(0, playerOneY + -PADDLE_SPEED * dt)
@@ -77,12 +77,35 @@ function love.update(dt)
     elseif love.keyboard.isDown('down') then 
         playerTwoY = math.min(VIRTUAL_HEIGHT - 20, playerTwoY + PADDLE_SPEED * dt)
     end 
+
+    --movimento da bola DX e DY * dt, apenas se o game estiver em estado play
+    if gameState == 'play' then 
+        ballX = ballX + ballDX * dt
+        ballY = ballY + ballDY * dt
+    end
+
 end
 
 function love.keypressed(key)
     if key == 'escape' then 
         love.event.quit()
+    elseif key == 'enter' or key == 'return' then
+        if gameState == 'start' then 
+            gameState = 'play'
+        else 
+            gameState = 'start'
+
+            --reinicia a bola no meio da tela
+            ballX = VIRTUAL_WIDTH / 2 - 2
+            ballY = VIRTUAL_HEIGHT / 2 - 2 
+
+            --determina um a velocidade da bola com um parametro aleatório
+            --or é um operator ternário da ling Lua
+            ballDX = math.random(2) == 1 and 100 or - 100
+            ballDY = math.random(-50, 50) * 1.5
+        end
     end
+
 end
 
 function love.draw()
@@ -101,7 +124,12 @@ function love.draw()
     )]]
     
     love.graphics.setFont(smallFont)
-    love.graphics.printf('Hello Pong!', 0, 20, VIRTUAL_WIDTH, 'center')
+
+    if gameState == 'start' then
+        love.graphics.printf('Press start', 0, 20, VIRTUAL_WIDTH, 'center')
+    else 
+        love.graphics.printf('Go!', 0, 20, VIRTUAL_WIDTH, 'center')
+    end
 
     love.graphics.setFont(scoreFont)
     love.graphics.print(tostring(playerOneScore), VIRTUAL_WIDTH / 2 - 50, VIRTUAL_HEIGHT / 3)
@@ -109,7 +137,7 @@ function love.draw()
 
     love.graphics.rectangle('fill', 10, playerOneY, 5, 20) --('preenchido', x-axis, y-axis, width, heigth)
     love.graphics.rectangle('fill', VIRTUAL_WIDTH - 15, playerTwoY, 5, 20)
-    love.graphics.rectangle('fill', VIRTUAL_WIDTH / 2 - 2, VIRTUAL_HEIGHT / 2 - 2, 4, 4)
+    love.graphics.rectangle('fill', ballX, ballDX, 4, 4)
 
 
     push:apply('end')
