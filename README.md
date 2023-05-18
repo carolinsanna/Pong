@@ -1,4 +1,4 @@
-# The Pong Game
+# The Pong Game :video_game:
 
 ## Intro 
 
@@ -17,5 +17,5 @@ A linguagem utilizada para recriar essa clássico dos games.
 ## LÖVE :gift_heart:
 
 O compilador escolhido para executar os códigos do projeto.  
-[Download](https://love2d.org)
+[Download :link:](https://love2d.org)  
 [Documentação :link:](https://love2d.org/wiki/Getting_Started)
