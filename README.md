@@ -18,4 +18,8 @@ A linguagem utilizada para recriar essa clássico dos games.
 
 O compilador escolhido para executar os códigos do projeto.  
 [Download :link:](https://love2d.org)  
+<<<<<<< HEAD
 [Documentação :link:](https://love2d.org/wiki/Getting_Started)
+=======
+[Documentação :link:](https://love2d.org/wiki/Getting_Started)
+>>>>>>> 43424b9b7bcd0b667e389b334a149218307b4b96
